@@ -10,17 +10,21 @@ def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
 
-def generate_id(path, dir=False, **kwargs):
+def default_rsuffix(suffix):
+    return suffix
+
+
+def generate_id(path, dir=False, rsuffix=default_rsuffix, **kwargs):
     file = path.stem
     parent_path = path.parent
-    suffix = path.suffix
+    suffix = rsuffix(path.suffix)
     id = ''
     while (parent_path / f'{file}{id}{suffix}').is_dir() if dir else (parent_path / f'{file}{id}{suffix}').is_file():
         id = id_generator(**kwargs)
     return f'{file}{id}{suffix}'
 
 
-def io_mkdir(path, m='', **kwargs):
+def io_mkdir(path, **kwargs):
     if path is None:
         raise ValueError
 
