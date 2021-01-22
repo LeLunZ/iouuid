@@ -35,6 +35,7 @@ def io_writer(path, data=None, m='', **kwargs):
         raise ValueError
 
     path = Path(path)
+    fname = ''
     if data is None:
         raise ValueError
     if type(data) is str:
@@ -52,11 +53,15 @@ def io_writer(path, data=None, m='', **kwargs):
             mo = 'w'
         else:
             raise ValueError
+        if not (not hasattr(data, 'name') or data.name is None or data.name == ''):
+            fname = data.name
+
         data = data.read()
-    name = generate_id(path, **kwargs)
+
+    name = generate_id(path / fname, **kwargs)
 
     if m == '':
         m = mo
-    with open(path.parent / name, m) as file:
+    with open((path.parent / name) if fname == '' else (path / fname), m) as file:
         file.write(data)
     return

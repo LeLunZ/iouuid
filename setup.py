@@ -11,13 +11,13 @@ except FileNotFoundError:
 setup(
     name='io-uuid',
     packages=['iouuid'],
-    version='0.0.1',
+    version='0.0.2',
     license='BSD 3-Clause',
     description='A file name generator',
     author='LeLunZ',
     author_email='l.accounts@pm.me',
     url='https://github.com/LeLunZ/iouuid',
-    download_url='https://github.com/LeLunZ/iouuid/archive/0.0.1.tar.gz',
+    download_url='https://github.com/LeLunZ/iouuid/archive/0.0.2.tar.gz',
     keywords=['iouuid', 'uuid', 'name generator', 'file name generator'],
     install_requires=[],
     classifiers=[
