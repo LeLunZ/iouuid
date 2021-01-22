@@ -55,7 +55,9 @@ def io_writer(path, data=None, m='', **kwargs):
             raise ValueError
         if not (not hasattr(data, 'name') or data.name is None or data.name == ''):
             fname = data.name
-
+        else:
+            if not path.is_dir():
+                fname = path.name
         data = data.read()
 
     name = generate_id(path / fname, **kwargs)
