@@ -34,12 +34,11 @@ def io_mkdir(path, **kwargs):
     return
 
 
-def io_writer(path, data=None, m='', **kwargs):
+def io_writer(path, filename='', data=None, m='', **kwargs):
     if path is None:
         raise ValueError
 
     path = Path(path)
-    fname = ''
     if data is None:
         raise ValueError
     if type(data) is str:
@@ -58,16 +57,16 @@ def io_writer(path, data=None, m='', **kwargs):
         else:
             raise ValueError
         if not (not hasattr(data, 'name') or data.name is None or data.name == ''):
-            fname = data.name
-        else:
-            if not path.is_dir():
-                fname = path.name
+            if filename == '':
+                filename = data.name
         data = data.read()
 
-    name = generate_id(path / fname, **kwargs)
+    if filename == '':
+        filename = 'unnamed'
+    name = generate_id(path / filename, **kwargs)
 
     if m == '':
         m = mo
-    with open((path.parent / name) if fname == '' else (path / fname), m) as file:
+    with open((path / name), m) as file:
         file.write(data)
     return
